@@ -21,7 +21,10 @@ for(let i = 0; i<currentGen.length; i++){
     }
 }
 
-function goThroughMatrix(matrix, nextMatrix){
+function goThroughMatrix(matrix, nextMatrix, count){
+    if(count == 10){
+        return
+    }
     // print the current generation
     printMatrix(matrix)
 
@@ -56,8 +59,8 @@ function goThroughMatrix(matrix, nextMatrix){
     }    
     // generations swapped so that the nextGen becomes the currentGen
     // for the next call
-    printMatrix(nextMatrix)
-    // goThroughMatrix(nextMatrix, matrix)
+    // printMatrix(nextMatrix)
+    goThroughMatrix(nextMatrix, matrix, count+1)
 }
 
 function countOfLivingNeighbours(matrix, i, j){
@@ -117,6 +120,11 @@ function printMatrix(matrix){
         }
         console.log(res)
     }
+    let line = ""
+    for(let i = 0; i<matrix[0].length; i++){
+        line += "--"
+    }
+    console.log(line)
 }
 
-goThroughMatrix(currentGen, nextGen)
+goThroughMatrix(currentGen, nextGen, 0)
