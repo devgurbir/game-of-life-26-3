@@ -55,47 +55,56 @@ function goThroughMatrix(matrix, nextMatrix){
     }    
     // generations swapped so that the nextGen becomes the currentGen
     // for the next call
-    goThroughMatrix(nextMatrix, matrix)
+    console.log(nextMatrix)
+    // goThroughMatrix(nextMatrix, matrix)
 }
 
 function countOfLivingNeighbours(matrix, i, j){
     let count = 0;
 
-    if(matrix[i-1][j-1] != undefined){
+    if(matrix[i-1] != undefined && matrix[i-1][j-1] != undefined){
         count += matrix[i-1][j-1]
     }
 
-    if(matrix[i-1][j] != undefined){
+    if(matrix[i-1] != undefined && matrix[i-1][j] != undefined){
         count += matrix[i-1][j]
     }
 
-    if(matrix[i-1][j+1] != undefined){
+    if(matrix[i-1] != undefined && matrix[i-1][j+1] != undefined){
         count += matrix[i-1][j+1]
     }
 
-    if(matrix[i][j-1] != undefined){
+    if(matrix[i] != undefined && matrix[i][j-1] != undefined){
         count += matrix[i][j-1]
     }
 
-    if(matrix[i][j+1] != undefined){
+    if(matrix[i] != undefined && matrix[i][j+1] != undefined){
         count += matrix[i][j+1]
     }
 
-    if(matrix[i+1][j-1] != undefined){
+    if(matrix[i+1] != undefined && matrix[i+1][j-1] != undefined){
         count += matrix[i+1][j-1]
     }
 
-    if(matrix[i+1][j] != undefined){
+    if(matrix[i+1] != undefined && matrix[i+1][j] != undefined){
         count += matrix[i+1][j]
     }
 
-    if(matrix[i+1][j+1] != undefined){
+    if(matrix[i+1] != undefined && matrix[i+1][j+1] != undefined){
         count += matrix[i+1][j+1]
     }
 
     return count
-   
-    
+}
+
+function countOfLiving(matrix){
+    let count = 0;
+    for(let i = 0; i<matrix.length; i++){
+        for(let j = 0; j<matrix[i].length; j++){
+            count += matrix[i][j]
+        }
+    }
+    return count
 }
 
 goThroughMatrix(currentGen, nextGen)
