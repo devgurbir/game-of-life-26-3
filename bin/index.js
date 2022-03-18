@@ -4,9 +4,9 @@
 let currentGen = [];
 let nextGen = [];
 
-for(let i = 0; i<16; i++){
-    let temp1 = new Array(16)
-    let temp2 = new Array(16)
+for(let i = 0; i<8; i++){
+    let temp1 = new Array(8)
+    let temp2 = new Array(8)
 
     currentGen.push(temp1)
     nextGen.push(temp2)
@@ -22,7 +22,7 @@ for(let i = 0; i<currentGen.length; i++){
 
 function goThroughMatrix(matrix, nextMatrix){
     // print the current generation
-    console.log(matrix)
+    console.log("Current", matrix)
 
     // go through each element and update the element according to rules of the game    
     for(let i = 0; i<matrix.length; i++){
@@ -55,7 +55,7 @@ function goThroughMatrix(matrix, nextMatrix){
     }    
     // generations swapped so that the nextGen becomes the currentGen
     // for the next call
-    console.log(nextMatrix)
+    console.log("Next", nextMatrix)
     // goThroughMatrix(nextMatrix, matrix)
 }
 
