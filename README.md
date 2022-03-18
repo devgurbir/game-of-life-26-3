@@ -1,3 +1,6 @@
+NOTE: Best experience in VS Code's terminal  
+
+
 Run "git clone https://github.com/devgurbir/game-of-life"  
 
 From the directory where you have cloned the repo, run "npm install -g"  
