@@ -22,6 +22,9 @@ for(let i = 0; i<currentGen.length; i++){
 }
 
 function goThroughMatrix(matrix, nextMatrix, count){
+    if(countOfLiving(matrix) == 0){
+        return
+    }
     if(count == 10){
         return
     }
