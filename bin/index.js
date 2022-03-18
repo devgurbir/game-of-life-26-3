@@ -1,13 +1,19 @@
 #!/usr/bin/env node
 const chalk = require("chalk");
+const yargs = require('yargs/yargs')
+const { hideBin } = require('yargs/helpers')
+const argv = yargs(hideBin(process.argv)).argv
+
 
 // Initially creating the matrix
 let currentGen = [];
 let nextGen = [];
 
-for(let i = 0; i<8; i++){
-    let temp1 = new Array(8)
-    let temp2 = new Array(8)
+let n = argv.size || 32;
+
+for(let i = 0; i<n; i++){
+    let temp1 = new Array(n)
+    let temp2 = new Array(n)
 
     currentGen.push(temp1)
     nextGen.push(temp2)
@@ -25,9 +31,13 @@ function goThroughMatrix(matrix, nextMatrix, count){
     if(countOfLiving(matrix) == 0){
         return
     }
-    if(count == 10){
-        return
+    // Number of times function will run - taken from --count argument
+    if(argv.count){
+        if(count == argv.count){
+            return
+        }
     }
+    
     // print the current generation
     printMatrix(matrix)
 
@@ -63,7 +73,12 @@ function goThroughMatrix(matrix, nextMatrix, count){
     // generations swapped so that the nextGen becomes the currentGen
     // for the next call
     // printMatrix(nextMatrix)
-    goThroughMatrix(nextMatrix, matrix, count+1)
+    if(argv.interval){
+        setTimeout(() => goThroughMatrix(nextMatrix, matrix, count+1), argv.interval)
+    }
+    else{
+        goThroughMatrix(nextMatrix, matrix, count+1)
+    }
 }
 
 function countOfLivingNeighbours(matrix, i, j){
@@ -118,7 +133,7 @@ function printMatrix(matrix){
     for(let i = 0; i<matrix.length; i++){
         let res = ""
         for(let j = 0; j<matrix[i].length; j++){
-            res += matrix[i][j] == 1 ? chalk.white.bold(matrix[i][j]) : chalk.red.bold(matrix[i][j])
+            res += matrix[i][j] == 1 ? chalk.black.bgWhite.bold(matrix[i][j]) : chalk.red.bgBlack.bold(matrix[i][j])
             res += " "
         }
         console.log(res)
