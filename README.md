@@ -1,6 +1,6 @@
 Run "git clone https://github.com/devgurbir/game-of-life"  
 
-Next, "npm install -g"  
+From the directory where you have cloned the repo, run "npm install -g"  
 
 Use the command "gof" to start the Game Of Life.  
 
