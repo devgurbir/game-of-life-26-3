@@ -29,6 +29,7 @@ for(let i = 0; i<currentGen.length; i++){
 
 function goThroughMatrix(matrix, nextMatrix, count){
     if(countOfLiving(matrix) == 0){
+        console.log("Everyone died :(")
         return
     }
     // Number of times function will run - taken from --count argument
