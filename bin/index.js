@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const chalk = require("chalk");
 
 // Initially creating the matrix
 let currentGen = [];
@@ -22,7 +23,7 @@ for(let i = 0; i<currentGen.length; i++){
 
 function goThroughMatrix(matrix, nextMatrix){
     // print the current generation
-    console.log("Current", matrix)
+    printMatrix(matrix)
 
     // go through each element and update the element according to rules of the game    
     for(let i = 0; i<matrix.length; i++){
@@ -55,7 +56,7 @@ function goThroughMatrix(matrix, nextMatrix){
     }    
     // generations swapped so that the nextGen becomes the currentGen
     // for the next call
-    console.log("Next", nextMatrix)
+    printMatrix(nextMatrix)
     // goThroughMatrix(nextMatrix, matrix)
 }
 
@@ -105,6 +106,17 @@ function countOfLiving(matrix){
         }
     }
     return count
+}
+
+function printMatrix(matrix){    
+    for(let i = 0; i<matrix.length; i++){
+        let res = ""
+        for(let j = 0; j<matrix[i].length; j++){
+            res += matrix[i][j] == 1 ? chalk.white.bold(matrix[i][j]) : chalk.red.bold(matrix[i][j])
+            res += " "
+        }
+        console.log(res)
+    }
 }
 
 goThroughMatrix(currentGen, nextGen)
