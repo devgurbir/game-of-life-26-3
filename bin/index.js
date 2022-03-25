@@ -4,16 +4,29 @@ const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
 
-runGof();
+// runGof();
 
-function runGof() {
-  if (argv.size) {
-    let [current, next] = initializeMatrix(argv.size);
-    goThroughMatrix(current, next, 0);
-  } else {
-    let [current, next] = initializeMatrix();
-    goThroughMatrix(current, next, 0);
-  }
+console.log(runGof());
+
+function runGof(countArg, sizeArg) {
+  let size = argv.size || sizeArg || 32;
+  let count = argv.count || countArg || Number.MAX_SAFE_INTEGER;
+
+  let [current, next] = initializeMatrix(size);
+  return goThroughMatrix(count);
+
+  //   if (argv.size && argv.count) {
+  //     return goThroughMatrix(current, next, 0, argv.count);
+  //   } else if (argv.size) {
+  //     let [current, next] = initializeMatrix(argv.size);
+  //     return goThroughMatrix(current, next, 0);
+  //   } else if (argv.count) {
+  //     let [current, next] = initializeMatrix();
+  //     return goThroughMatrix(current, next, 0, argv.count);
+  //   } else {
+  //     let [current, next] = initializeMatrix();
+  //     return goThroughMatrix(current, next, 0);
+  //   }
 }
 
 function initializeMatrix(n = 32) {
@@ -48,15 +61,15 @@ function goThroughMatrix(
 ) {
   if (countOfLiving(matrix) == 0) {
     console.log("Everyone died :(");
-    return;
+    return matrix;
   }
   // Number of times function will run - taken from --count argument
   if (count == countAllowed) {
-    return [nextMatrix];
+    return matrix;
   }
 
   // print the current generation
-  printMatrix(matrix);
+  //   printMatrix(matrix);
 
   // go through each element and update the element according to rules of the game
   for (let i = 0; i < matrix.length; i++) {
@@ -94,7 +107,7 @@ function goThroughMatrix(
       argv.interval
     );
   } else {
-    goThroughMatrix(nextMatrix, matrix, count + 1);
+    return goThroughMatrix(nextMatrix, matrix, count + 1, countAllowed);
   }
 }
 

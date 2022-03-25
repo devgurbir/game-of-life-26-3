@@ -1,4 +1,4 @@
-const goThroughMatrix = require("../bin/index");
+const { goThroughMatrix } = require("./index");
 
 let current = [[0, 1, 0], [0, 1, 0][(0, 1, 0)]];
 let next = [[], [], []];
