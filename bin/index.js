@@ -4,7 +4,7 @@ const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
 
-// runGof();
+runGof();
 
 // console.log(runGof(3, 6));
 
@@ -64,7 +64,7 @@ function goThroughMatrix(matrix, nextMatrix, count, countAllowed) {
   }
 
   // print the current generation
-  //   printMatrix(matrix);
+  printMatrix(matrix);
 
   // go through each element and update the element according to rules of the game
   for (let i = 0; i < matrix.length; i++) {
@@ -95,7 +95,7 @@ function goThroughMatrix(matrix, nextMatrix, count, countAllowed) {
   }
   // generations swapped so that the nextGen becomes the currentGen
   // for the next call
-  // printMatrix(nextMatrix)
+  //   printMatrix(nextMatrix);
   if (argv.interval) {
     setTimeout(
       () => goThroughMatrix(nextMatrix, matrix, count + 1),
@@ -166,40 +166,6 @@ function printMatrix(matrix) {
     }
     console.log(res);
   }
-}
-
-function goThroughMatrixBasic(matrix, nextMatrix) {
-  // go through each element and update the element according to rules of the game
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix[i].length; j++) {
-      if (matrix[i][j] == 1) {
-        let count = countOfLivingNeighbours(matrix, i, j);
-        // less than 2 living neighbours
-        if (count < 2) {
-          nextMatrix[i][j] = 0;
-        }
-        // if 2 or 3 living neighbours, live
-        else if (count == 2 || count == 3) {
-          nextMatrix[i][j] = 1;
-        }
-        // else death by overpopulation i.e 3+ living neighbours
-        else {
-          nextMatrix[i][j] = 0;
-        }
-      } else if (matrix[i][j] == 0) {
-        let count = countOfLivingNeighbours(matrix, i, j);
-        if (count == 3) {
-          nextMatrix[i][j] = 1;
-        } else {
-          nextMatrix[i][j] = 0;
-        }
-      }
-    }
-  }
-  // generations swapped so that the nextGen becomes the currentGen
-  // for the next call
-  // printMatrix(nextMatrix)
-  return nextMatrix;
 }
 
 // goThroughMatrix(currentGen, nextGen, 0);
