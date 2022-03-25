@@ -6,14 +6,14 @@ const argv = yargs(hideBin(process.argv)).argv;
 
 // runGof();
 
-console.log(runGof());
+// console.log(runGof(3, 6));
 
 function runGof(countArg, sizeArg) {
   let size = argv.size || sizeArg || 32;
-  let count = argv.count || countArg || Number.MAX_SAFE_INTEGER;
+  let c = argv.count || countArg || Number.MAX_SAFE_INTEGER;
 
   let [current, next] = initializeMatrix(size);
-  return goThroughMatrix(count);
+  return goThroughMatrix(current, next, 0, c);
 
   //   if (argv.size && argv.count) {
   //     return goThroughMatrix(current, next, 0, argv.count);
@@ -53,12 +53,7 @@ function initializeMatrix(n = 32) {
   return [currentGen, nextGen];
 }
 
-function goThroughMatrix(
-  matrix,
-  nextMatrix,
-  count,
-  countAllowed = Number.MAX_SAFE_INTEGER
-) {
+function goThroughMatrix(matrix, nextMatrix, count, countAllowed) {
   if (countOfLiving(matrix) == 0) {
     console.log("Everyone died :(");
     return matrix;
@@ -171,6 +166,40 @@ function printMatrix(matrix) {
     }
     console.log(res);
   }
+}
+
+function goThroughMatrixBasic(matrix, nextMatrix) {
+  // go through each element and update the element according to rules of the game
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      if (matrix[i][j] == 1) {
+        let count = countOfLivingNeighbours(matrix, i, j);
+        // less than 2 living neighbours
+        if (count < 2) {
+          nextMatrix[i][j] = 0;
+        }
+        // if 2 or 3 living neighbours, live
+        else if (count == 2 || count == 3) {
+          nextMatrix[i][j] = 1;
+        }
+        // else death by overpopulation i.e 3+ living neighbours
+        else {
+          nextMatrix[i][j] = 0;
+        }
+      } else if (matrix[i][j] == 0) {
+        let count = countOfLivingNeighbours(matrix, i, j);
+        if (count == 3) {
+          nextMatrix[i][j] = 1;
+        } else {
+          nextMatrix[i][j] = 0;
+        }
+      }
+    }
+  }
+  // generations swapped so that the nextGen becomes the currentGen
+  // for the next call
+  // printMatrix(nextMatrix)
+  return nextMatrix;
 }
 
 // goThroughMatrix(currentGen, nextGen, 0);
