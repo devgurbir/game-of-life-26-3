@@ -1,3 +1,5 @@
+My attempt at the popular Game Of Life created as a CLI using NodeJS. Has some basic tests written in Jest.
+
 NOTE: Best experience in VS Code's terminal
 
 TLDR:
